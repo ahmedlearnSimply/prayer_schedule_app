@@ -15,6 +15,7 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
+        //* background static
         body: Container(
           width: double.infinity,
           decoration: BoxDecoration(
@@ -24,7 +25,11 @@ class _HomePageState extends State<HomePage> {
             ),
           ),
           child: Column(
-            children: [],
+            children: [
+              //* time for this day
+
+              //* prayer times
+            ],
           ),
         ),
       ),

@@ -22,3 +22,7 @@ flutter:
     - assets/background/
     - assets/icons/
     - assets/images/
+  fonts:
+    - family: kanit
+      fonts:
+        - asset: assets/fonts/Kanit/Kanit-Regular.ttf
