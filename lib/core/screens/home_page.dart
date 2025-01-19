@@ -14,10 +14,25 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+  final List<Widget> _pages = [
+    Center(child: Text('Home Page')),
+    Center(child: Text('Calendar Page')),
+    Center(child: Text('Prayer Times Page')),
+    Center(child: Text('Settings Page')),
+  ];
   @override
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
+        bottomNavigationBar: BottomNavigationBar(
+          currentIndex: 1,
+          items: [
+            BottomNavigationBarItem(icon: Icon(Icons.abc), label: "dfa"),
+            BottomNavigationBarItem(icon: Icon(Icons.abc), label: "dfa"),
+            BottomNavigationBarItem(icon: Icon(Icons.abc), label: "dfa"),
+            BottomNavigationBarItem(icon: Icon(Icons.abc), label: "dfa"),
+          ],
+        ),
         //* background static
         body: Stack(
           children: [
@@ -27,7 +42,7 @@ class _HomePageState extends State<HomePage> {
               decoration: BoxDecoration(
                 image: DecorationImage(
                   image: AssetImage(
-                    AppImages.duhar,
+                    AppImages.fajr,
                   ), // Replace with your image path
                   fit: BoxFit.cover, // Cover the entire screen
                 ),
