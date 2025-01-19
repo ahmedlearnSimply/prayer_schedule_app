@@ -9,17 +9,17 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-
+  gap: ^3.0.1
 
 dev_dependencies:
+  flutter_lints: ^4.0.0
   flutter_test:
     sdk: flutter
-  flutter_lints: ^4.0.0
 
 flutter:
   uses-material-design: true
   assets:
-    - assets/background/
+    - assets/background_images/
     - assets/icons/
     - assets/images/
   fonts:
