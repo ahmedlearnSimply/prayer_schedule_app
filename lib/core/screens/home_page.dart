@@ -27,7 +27,7 @@ class _HomePageState extends State<HomePage> {
               decoration: BoxDecoration(
                 image: DecorationImage(
                   image: AssetImage(
-                    AppImages.fajr,
+                    AppImages.duhar,
                   ), // Replace with your image path
                   fit: BoxFit.cover, // Cover the entire screen
                 ),
