@@ -1,7 +1,11 @@
+// ignore_for_file: prefer_const_constructors, avoid_unnecessary_containers
+
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:gap/gap.dart';
 import 'package:prayer_schedule_app/components/app_fonts.dart';
 import 'package:prayer_schedule_app/components/app_images.dart';
+import 'package:prayer_schedule_app/core/widgets/left_time.dart';
 import 'package:prayer_schedule_app/core/widgets/prayer_box.dart';
 
 class HomePage extends StatefulWidget {
@@ -73,6 +77,20 @@ class _HomePageState extends State<HomePage> {
                     PrayerBox(text: "Maghrib", time: "06:00"),
                     PrayerBox(text: "Isha", time: "06:00"),
                   ],
+                ),
+
+                Expanded(
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.end,
+                    children: [
+                      LeftTime(padding: 10),
+                      Gap(15),
+                      LeftTime(padding: 30),
+                      Gap(10),
+                      LeftTime(padding: 30),
+                      Gap(90),
+                    ],
+                  ),
                 ),
               ],
             ),

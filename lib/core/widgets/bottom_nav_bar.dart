@@ -32,7 +32,7 @@ class _NavBarWidgetState extends State<NavBarWidget> {
           Positioned(
             left: 10,
             right: 10,
-            bottom: 10,
+            bottom: 0,
             child: Container(
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(30),

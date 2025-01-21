@@ -7,9 +7,12 @@ class AppImages {
   static String maghrib = "assets/background_images/Maghrib.png";
   static String isha = "assets/background_images/Isha.png";
 
-  //todo:  icons
+  //todo:  icons bottom nav bar
   static String homeSvg = "assets/icons/home.svg";
   static String calenderSvg = "assets/icons/calender.svg";
   static String compassSvg = "assets/icons/compass.svg";
   static String profileSvg = "assets/icons/profile.svg";
+
+  static String turnSvg = "assets/icons/turn.svg";
+  static String muteSvg = "assets/icons/mute.svg";
 }
