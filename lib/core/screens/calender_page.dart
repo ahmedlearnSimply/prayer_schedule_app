@@ -1,5 +1,6 @@
 // ignore_for_file: prefer_const_constructors, avoid_unnecessary_containers
 
+import 'package:date_picker_plus/date_picker_plus.dart';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:prayer_schedule_app/components/app_fonts.dart';
@@ -7,14 +8,14 @@ import 'package:prayer_schedule_app/components/app_images.dart';
 import 'package:prayer_schedule_app/core/widgets/left_time.dart';
 import 'package:prayer_schedule_app/core/widgets/prayer_box.dart';
 
-class HomePage extends StatefulWidget {
-  const HomePage({super.key});
+class CalenderPage extends StatefulWidget {
+  const CalenderPage({super.key});
 
   @override
-  State<HomePage> createState() => _HomePageState();
+  State<CalenderPage> createState() => _HomePageState();
 }
 
-class _HomePageState extends State<HomePage> {
+class _HomePageState extends State<CalenderPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -39,23 +40,7 @@ class _HomePageState extends State<HomePage> {
             Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                const Gap(40),
-                // Date and time
-                Padding(
-                  padding: const EdgeInsets.only(top: 14.0, left: 20),
-                  child: Text(
-                    "16 February, 2023",
-                    style: AppFonts.get20Font(),
-                  ),
-                ),
-                Padding(
-                  padding: const EdgeInsets.only(top: 1, left: 20),
-                  child: Text(
-                    "06:00 AM",
-                    style: AppFonts.get20Font(),
-                  ),
-                ),
-                const Gap(16),
+                const Gap(90),
 
                 // Prayer times - First row
                 Row(
@@ -78,16 +63,39 @@ class _HomePageState extends State<HomePage> {
                   ],
                 ),
 
-                Expanded(
+                Center(
                   child: Column(
-                    mainAxisAlignment: MainAxisAlignment.end,
+                    mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      LeftTime(padding: 10),
-                      Gap(15),
-                      LeftTime(padding: 30),
-                      Gap(10),
-                      LeftTime(padding: 30),
-                      Gap(90),
+                      SizedBox(
+                        height: 400,
+                        child: DatePicker(
+                          leadingDateTextStyle: TextStyle(
+                            color: Colors.white,
+                          ),
+                          daysOfTheWeekTextStyle: TextStyle(
+                            color: Colors.white,
+                          ),
+                          currentDateTextStyle: TextStyle(
+                            color: Colors.white,
+                          ),
+                          highlightColor: Colors.white,
+                          centerLeadingDate: true,
+                          minDate: DateTime(2025),
+                          maxDate: DateTime(2030),
+                          initialDate: DateTime(2025, 1),
+                          disabledCellsDecoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(20),
+                            color: Colors.white,
+                          ),
+                          enabledCellsDecoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(30),
+                            color: Colors.white,
+                          ),
+                          splashColor: Colors.white,
+                          slidersColor: Colors.white,
+                        ),
+                      ),
                     ],
                   ),
                 ),
