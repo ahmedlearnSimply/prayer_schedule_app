@@ -1,5 +1,3 @@
-// ignore_for_file: prefer_const_constructors
-
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:prayer_schedule_app/components/app_images.dart';
@@ -15,7 +13,7 @@ class NavBarWidget extends StatefulWidget {
 class _NavBarWidgetState extends State<NavBarWidget> {
   int currentPage = 0;
   List<Widget> pages = [
-    HomePage(),
+    const HomePage(),
     const Center(child: Text("Calendar")),
     const Center(child: Text("Compass")),
     const Center(child: Text("Profile")),
@@ -24,68 +22,79 @@ class _NavBarWidgetState extends State<NavBarWidget> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: pages[currentPage],
-      bottomNavigationBar: Container(
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(40),
-          boxShadow: [
-            BoxShadow(
-              color: Colors.black.withOpacity(0.1),
-              blurRadius: 10,
-              spreadRadius: 2,
-            ),
-          ],
-        ),
-        child: ClipRRect(
-          borderRadius: BorderRadius.all(Radius.circular(20)),
-          child: BottomNavigationBar(
-            backgroundColor: Colors.white,
-            elevation: 0,
-            selectedItemColor: Colors.blue, // Selected icon color
-            unselectedItemColor: Colors.grey, // Unselected icon color
-            showSelectedLabels: false,
-            showUnselectedLabels: false,
-            type: BottomNavigationBarType.fixed,
-            currentIndex: currentPage,
-            onTap: (index) {
-              setState(() {
-                currentPage = index;
-              });
-            },
-            items: [
-              BottomNavigationBarItem(
-                icon: SvgPicture.asset(
-                  AppImages.homeSvg, // Replace with your SVG path
-                  width: 30,
-                ),
-                label: "Home",
-              ),
-              BottomNavigationBarItem(
-                icon: SvgPicture.asset(
-                  AppImages.calenderSvg, // Replace with your SVG path
-                  width: 40,
-                ),
-                label: "Calendar",
-              ),
-              BottomNavigationBarItem(
-                icon: SvgPicture.asset(
-                  AppImages.compassSvg, // Replace with your SVG path
-                  width: 40,
+      // Use a Stack to overlay the bottom navigation bar on top of the content
+      body: Stack(
+        children: [
+          // Display the selected page
+          pages[currentPage],
 
-                  // Dynamic color
-                ),
-                label: "Compass",
+          // Bottom Navigation Bar (positioned at the bottom of the screen)
+          Positioned(
+            left: 10,
+            right: 10,
+            bottom: 10,
+            child: Container(
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(30),
+                boxShadow: [
+                  BoxShadow(
+                    color: Colors.black.withOpacity(0.1),
+                    blurRadius: 10,
+                    spreadRadius: 2,
+                  ),
+                ],
               ),
-              BottomNavigationBarItem(
-                icon: SvgPicture.asset(
-                  AppImages.profileSvg, // Replace with your SVG path
-                  width: 30,
+              child: ClipRRect(
+                borderRadius: BorderRadius.circular(20),
+                child: BottomNavigationBar(
+                  backgroundColor: Colors.white
+                      .withOpacity(0.9), // Semi-transparent background
+                  elevation: 0,
+                  unselectedItemColor: Colors.grey, // Unselected icon color
+                  showSelectedLabels: false,
+                  showUnselectedLabels: false,
+                  type: BottomNavigationBarType.fixed,
+                  currentIndex: currentPage,
+                  onTap: (index) {
+                    setState(() {
+                      currentPage = index;
+                    });
+                  },
+                  items: [
+                    BottomNavigationBarItem(
+                      icon: SvgPicture.asset(
+                        AppImages.homeSvg,
+                        width: 35,
+                      ),
+                      label: "Home",
+                    ),
+                    BottomNavigationBarItem(
+                      icon: SvgPicture.asset(
+                        AppImages.calenderSvg,
+                        width: 40,
+                      ),
+                      label: "Calendar",
+                    ),
+                    BottomNavigationBarItem(
+                      icon: SvgPicture.asset(
+                        AppImages.compassSvg,
+                        width: 40,
+                      ),
+                      label: "Compass",
+                    ),
+                    BottomNavigationBarItem(
+                      icon: SvgPicture.asset(
+                        AppImages.profileSvg,
+                        width: 40,
+                      ),
+                      label: "Profile",
+                    ),
+                  ],
                 ),
-                label: "Profile",
               ),
-            ],
+            ),
           ),
-        ),
+        ],
       ),
     );
   }
