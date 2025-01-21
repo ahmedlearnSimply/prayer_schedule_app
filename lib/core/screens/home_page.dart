@@ -1,7 +1,4 @@
-// ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables
-//! todo to make svgpicture
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/svg.dart';
 import 'package:gap/gap.dart';
 import 'package:prayer_schedule_app/components/app_fonts.dart';
 import 'package:prayer_schedule_app/components/app_images.dart';
@@ -15,132 +12,75 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  int currentIndex = 0;
-  final List<Widget> _pages = [
-    Center(child: Text('Home Page')),
-    Center(child: Text('Calendar Page')),
-    Center(child: Text('Prayer Times Page')),
-    Center(child: Text('Settings Page')),
-  ];
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
-      child: Scaffold(
-        //* background static
-        body: Stack(
+    return Scaffold(
+      // Use SafeArea to avoid system UI overlaps
+      body: SafeArea(
+        child: Stack(
           children: [
-            //* background image
+            // Background image (takes up the entire screen)
             Positioned.fill(
               child: Container(
-                width: double.infinity,
                 decoration: BoxDecoration(
                   image: DecorationImage(
                     image: AssetImage(
-                      AppImages.fajr,
-                    ), // Replace with your image path
+                        AppImages.fajr), // Replace with your image path
                     fit: BoxFit.cover, // Cover the entire screen
                   ),
                 ),
               ),
             ),
 
-            //* prayer times column
+            // Main content column
             Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Gap(40),
-                //todo: date for this day
+                const Gap(40),
+                // Date and time
                 Padding(
                   padding: const EdgeInsets.only(top: 14.0, left: 20),
                   child: Text(
-                    "16 February, 2023 ",
+                    "16 February, 2023",
                     style: AppFonts.get20Font(),
                   ),
                 ),
-                //todo: time now
                 Padding(
                   padding: const EdgeInsets.only(top: 1, left: 20),
                   child: Text(
-                    "06:00 Am",
+                    "06:00 AM",
                     style: AppFonts.get20Font(),
                   ),
                 ),
-                Gap(16),
-                //todo: prayer times
+                const Gap(16),
 
+                // Prayer times - First row
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceAround,
                   children: [
-                    PrayerBox(
-                      text: "Fajr",
-                      time: "06:00",
-                    ),
-                    PrayerBox(
-                      text: "Shuruk",
-                      time: "07:18",
-                    ),
-                    PrayerBox(
-                      text: "Dhuhr",
-                      time: "06:00",
-                    ),
+                    PrayerBox(text: "Fajr", time: "06:00"),
+                    PrayerBox(text: "Shuruk", time: "07:18"),
+                    PrayerBox(text: "Dhuhr", time: "06:00"),
                   ],
                 ),
-                Gap(30),
+                const Gap(30),
+
+                // Prayer times - Second row
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceAround,
                   children: [
-                    PrayerBox(
-                      text: "Asr",
-                      time: "06:00",
-                    ),
-                    PrayerBox(
-                      text: "Maghrib",
-                      time: "06:00",
-                    ),
-                    PrayerBox(
-                      text: "Isha",
-                      time: "06:00",
-                    ),
+                    PrayerBox(text: "Asr", time: "06:00"),
+                    PrayerBox(text: "Maghrib", time: "06:00"),
+                    PrayerBox(text: "Isha", time: "06:00"),
                   ],
                 ),
               ],
             ),
           ],
         ),
-        bottomNavigationBar: BottomNavigationBar(
-          fixedColor: Colors.amber,
-          backgroundColor: Colors.amber,
-          unselectedItemColor: Colors.black12,
-          currentIndex: currentIndex,
-          onTap: (index) {
-            setState(() {
-              currentIndex = index; // Update the selected tab
-            });
-          },
-          items: [
-            BottomNavigationBarItem(
-              icon: SvgPicture.asset(
-                AppImages.calenderSvg,
-                width: 24,
-                color: Colors.amber,
-              ), // Material icon
-              label: 'Home',
-            ),
-            BottomNavigationBarItem(
-              icon: Icon(Icons.home), // Material icon
-              label: 'Home',
-            ),
-            BottomNavigationBarItem(
-              icon: Icon(Icons.home), // Material icon
-              label: 'Home',
-            ),
-            BottomNavigationBarItem(
-              icon: Icon(Icons.home), // Material icon
-              label: 'Home',
-            ),
-          ],
-        ),
       ),
+
+      // Bottom navigation bar (sits on top of the background)
     );
   }
 }

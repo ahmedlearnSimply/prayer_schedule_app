@@ -9,7 +9,7 @@ class AppImages {
 
   //todo:  icons
   static String homeSvg = "assets/icons/home.svg";
-  static String settingSvg = "assets/icons/setting.svg";
-  static String calenderSvg = "assets/icons/calendar.svg";
+  static String calenderSvg = "assets/icons/calender.svg";
   static String compassSvg = "assets/icons/compass.svg";
+  static String profileSvg = "assets/icons/profile.svg";
 }
