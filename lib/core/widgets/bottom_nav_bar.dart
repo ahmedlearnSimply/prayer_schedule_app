@@ -17,7 +17,6 @@ class _NavBarWidgetState extends State<NavBarWidget> {
   List<Widget> pages = [
     const HomePage(),
     const CalenderPage(),
-    CompassPage(),
     const Center(child: Text("Profile")),
   ];
 
