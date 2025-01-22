@@ -62,41 +62,64 @@ class _HomePageState extends State<CalenderPage> {
                     PrayerBox(text: "Isha", time: "06:00"),
                   ],
                 ),
-
-                Center(
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      SizedBox(
-                        height: 400,
-                        child: DatePicker(
-                          leadingDateTextStyle: TextStyle(
-                            color: Colors.white,
-                          ),
-                          daysOfTheWeekTextStyle: TextStyle(
-                            color: Colors.white,
-                          ),
-                          currentDateTextStyle: TextStyle(
-                            color: Colors.white,
-                          ),
-                          highlightColor: Colors.white,
-                          centerLeadingDate: true,
-                          minDate: DateTime(2025),
-                          maxDate: DateTime(2030),
-                          initialDate: DateTime(2025, 1),
-                          disabledCellsDecoration: BoxDecoration(
+                Gap(10),
+                Expanded(
+                  child: Center(
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Container(
+                          decoration: BoxDecoration(
+                            color: Colors.black.withOpacity(0.4),
+                            // gradient: LinearGradient(
+                            //   colors: [
+                            //     Colors.black,
+                            //     Colors.grey,
+                            //   ],
+                            // ),
                             borderRadius: BorderRadius.circular(20),
-                            color: Colors.white,
                           ),
-                          enabledCellsDecoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(30),
-                            color: Colors.white,
+                          child: SizedBox(
+                            width: 350,
+                            height: 300,
+                            child: DaysPicker(
+                              currentDateDecoration: const BoxDecoration(),
+                              currentDateTextStyle: const TextStyle(
+                                color: Colors.white,
+                              ),
+                              daysOfTheWeekTextStyle: const TextStyle(
+                                color: Colors.white,
+                              ),
+                              disabledCellsDecoration: const BoxDecoration(),
+                              disabledCellsTextStyle: const TextStyle(
+                                color: Colors.white,
+                              ),
+                              enabledCellsDecoration: const BoxDecoration(),
+                              enabledCellsTextStyle: const TextStyle(
+                                color: Colors.white,
+                              ),
+                              selectedCellTextStyle: const TextStyle(),
+                              leadingDateTextStyle: const TextStyle(
+                                color: Colors.white,
+                              ),
+                              slidersColor: Colors.white,
+                              highlightColor: Colors.redAccent,
+                              slidersSize: 20,
+                              splashColor: Colors.lightBlueAccent,
+                              splashRadius: 40,
+                              centerLeadingDate: true,
+                              minDate: DateTime(202, 1, 1),
+                              maxDate: DateTime(2023, 12, 31),
+                              // currentDate: DateTime.now(),
+                              // selectedDate: DateTime.now(),
+                              onDateSelected: (value) {
+                                // Handle selected date
+                              },
+                            ),
                           ),
-                          splashColor: Colors.white,
-                          slidersColor: Colors.white,
                         ),
-                      ),
-                    ],
+                      ],
+                    ),
                   ),
                 ),
               ],
