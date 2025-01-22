@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:prayer_schedule_app/components/app_images.dart';
 import 'package:prayer_schedule_app/core/screens/calender_page.dart';
+import 'package:prayer_schedule_app/core/screens/compass.dart';
 import 'package:prayer_schedule_app/core/screens/home_page.dart';
 
 class NavBarWidget extends StatefulWidget {
@@ -15,8 +16,8 @@ class _NavBarWidgetState extends State<NavBarWidget> {
   int currentPage = 0;
   List<Widget> pages = [
     const HomePage(),
-    CalenderPage(),
-    const Center(child: Text("Compass")),
+    const CalenderPage(),
+    CompassPage(),
     const Center(child: Text("Profile")),
   ];
 
