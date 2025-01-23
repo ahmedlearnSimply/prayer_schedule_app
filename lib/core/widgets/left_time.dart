@@ -7,7 +7,11 @@ import 'package:prayer_schedule_app/components/app_images.dart';
 
 class LeftTime extends StatelessWidget {
   final double padding;
+  final String prayerName;
+  final String remainingTime;
   LeftTime({
+    required this.prayerName,
+    required this.remainingTime,
     required this.padding,
     super.key,
   });
@@ -35,11 +39,11 @@ class LeftTime extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: [
             Text(
-              "Dhuar",
+              prayerName,
               style: AppFonts.get24Font(),
             ),
             Text(
-              "Left: 03:01:02",
+              "Left: $remainingTime",
               style: AppFonts.get24Font(),
             ),
             SvgPicture.asset(

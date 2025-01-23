@@ -1,5 +1,4 @@
-// ignore_for_file: prefer_const_constructors, avoid_unnecessary_containers
-
+import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:intl/intl.dart';
@@ -8,6 +7,7 @@ import 'package:prayer_schedule_app/components/app_images.dart';
 import 'package:prayer_schedule_app/components/prayer_calculate.dart';
 import 'package:prayer_schedule_app/core/widgets/left_time.dart';
 import 'package:prayer_schedule_app/core/widgets/prayer_box.dart';
+import 'package:prayer_schedule_app/functions/calculate_remining_time.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -17,15 +17,29 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  @override
   String? formattedDate;
   String? formattedTime;
+  String? remainingTimeFajr;
+  String? remainingTimeDhuhr;
+  String? remainingTimeAsr;
+  late Timer _timer;
+
   Map<String, String>? prayerTimes;
+
   @override
   void initState() {
     super.initState();
     _calculatePrayerTimes();
-    _updateDateTime(); // Fetch and format the current date and time
+    _updateDateTime();
+    _timer = Timer.periodic(Duration(seconds: 1), (timer) {
+      _updateDateTime(); // Update every second
+    });
+  }
+
+  @override
+  void dispose() {
+    _timer.cancel(); // Cancel the timer
+    super.dispose();
   }
 
   // Method to calculate prayer times
@@ -39,32 +53,49 @@ class _HomePageState extends State<HomePage> {
   // Method to update the date and time
   void _updateDateTime() {
     final now = DateTime.now();
+
     setState(() {
       formattedDate = DateFormat('dd MMMM, yyyy').format(now); // Format date
       formattedTime = DateFormat('h:mm a').format(now); // Format time
+
+      // Calculate remaining time for each prayer
+      if (prayerTimes != null) {
+        final fajrTime = DateFormat('h:mm a').parse(prayerTimes!['fajr']!);
+        final dhuhrTime = DateFormat('h:mm a').parse(prayerTimes!['dhuhr']!);
+        final asrTime = DateFormat('h:mm a').parse(prayerTimes!['asr']!);
+
+        final fajrDateTime =
+            CalculateReminingTime.getPrayerDateTime(now, fajrTime);
+        final dhuhrDateTime =
+            CalculateReminingTime.getPrayerDateTime(now, dhuhrTime);
+        final asrDateTime =
+            CalculateReminingTime.getPrayerDateTime(now, asrTime);
+
+        remainingTimeFajr =
+            CalculateReminingTime.calculateRemainingTime(fajrDateTime);
+        remainingTimeDhuhr =
+            CalculateReminingTime.calculateRemainingTime(dhuhrTime);
+        remainingTimeAsr =
+            CalculateReminingTime.calculateRemainingTime(asrTime);
+      }
     });
   }
 
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
-      // Use SafeArea to avoid system UI overlaps
       body: SafeArea(
         child: Stack(
           children: [
-            // Background image (takes up the entire screen)
+            // Background image
             Positioned.fill(
-              child: Container(
-                decoration: BoxDecoration(
-                  image: DecorationImage(
-                    image: AssetImage(
-                        AppImages.fajr), // Replace with your image path
-                    fit: BoxFit.cover, // Cover the entire screen
-                  ),
-                ),
+              child: Image.asset(
+                AppImages.fajr,
+                fit: BoxFit.cover,
               ),
             ),
 
-            // Main content column
+            // Main content
             Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
@@ -73,14 +104,14 @@ class _HomePageState extends State<HomePage> {
                 Padding(
                   padding: const EdgeInsets.only(top: 14.0, left: 20),
                   child: Text(
-                    formattedDate!,
+                    formattedDate ?? "Loading date...",
                     style: AppFonts.get20Font(),
                   ),
                 ),
                 Padding(
                   padding: const EdgeInsets.only(top: 1, left: 20),
                   child: Text(
-                    formattedTime!,
+                    formattedTime ?? "Loading time...",
                     style: AppFonts.get20Font(),
                   ),
                 ),
@@ -117,11 +148,23 @@ class _HomePageState extends State<HomePage> {
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.end,
                     children: [
-                      LeftTime(padding: 10),
+                      LeftTime(
+                        prayerName: "Fajr",
+                        padding: 10,
+                        remainingTime: remainingTimeFajr ?? "00:00:00",
+                      ),
                       Gap(15),
-                      LeftTime(padding: 30),
+                      LeftTime(
+                        prayerName: "Dhuhr",
+                        padding: 10,
+                        remainingTime: remainingTimeDhuhr ?? "00:00:00",
+                      ),
                       Gap(10),
-                      LeftTime(padding: 30),
+                      LeftTime(
+                        prayerName: "Asr",
+                        padding: 10,
+                        remainingTime: remainingTimeAsr ?? "00:00:00",
+                      ),
                       Gap(90),
                     ],
                   ),
@@ -131,8 +174,6 @@ class _HomePageState extends State<HomePage> {
           ],
         ),
       ),
-
-      // Bottom navigation bar (sits on top of the background)
     );
   }
 }
