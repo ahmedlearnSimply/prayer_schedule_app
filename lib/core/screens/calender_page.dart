@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:prayer_schedule_app/components/app_fonts.dart';
 import 'package:prayer_schedule_app/components/app_images.dart';
+import 'package:prayer_schedule_app/components/prayer_calculate.dart';
 import 'package:prayer_schedule_app/core/widgets/left_time.dart';
 import 'package:prayer_schedule_app/core/widgets/prayer_box.dart';
 
@@ -16,6 +17,21 @@ class CalenderPage extends StatefulWidget {
 }
 
 class _HomePageState extends State<CalenderPage> {
+  Map<String, String>? prayerTimes;
+  @override
+  void initState() {
+    super.initState();
+    _calculatePrayerTimes();
+  }
+
+  // Method to calculate prayer times
+  void _calculatePrayerTimes() {
+    final times = PrayerTimeCalculator.getPrayerTimes();
+    setState(() {
+      prayerTimes = times;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -46,9 +62,12 @@ class _HomePageState extends State<CalenderPage> {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceAround,
                   children: [
-                    PrayerBox(text: "Fajr", time: "06:00"),
-                    PrayerBox(text: "Shuruk", time: "07:18"),
-                    PrayerBox(text: "Dhuhr", time: "06:00"),
+                    PrayerBox(
+                        text: "Fajr", time: prayerTimes!['fajr'] ?? '/na'),
+                    PrayerBox(
+                        text: "Shuruk", time: prayerTimes!['shuruk'] ?? '/na'),
+                    PrayerBox(
+                        text: "Dhuhr", time: prayerTimes!['dhuhr'] ?? '/na'),
                   ],
                 ),
                 const Gap(30),
@@ -57,9 +76,12 @@ class _HomePageState extends State<CalenderPage> {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceAround,
                   children: [
-                    PrayerBox(text: "Asr", time: "06:00"),
-                    PrayerBox(text: "Maghrib", time: "06:00"),
-                    PrayerBox(text: "Isha", time: "06:00"),
+                    PrayerBox(text: "Asr", time: prayerTimes!['asr'] ?? '/na'),
+                    PrayerBox(
+                        text: "Maghrib",
+                        time: prayerTimes!['maghrib'] ?? '/na'),
+                    PrayerBox(
+                        text: "Isha", time: prayerTimes!['isha'] ?? '/na'),
                   ],
                 ),
                 Gap(10),

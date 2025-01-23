@@ -6,7 +6,7 @@ import 'package:prayer_schedule_app/components/app_fonts.dart';
 
 class PrayerBox extends StatelessWidget {
   final String text;
-  final String time;
+  final String? time;
   PrayerBox({
     required this.text,
     required this.time,
@@ -32,7 +32,7 @@ class PrayerBox extends StatelessWidget {
             ),
             Gap(2),
             Text(
-              time,
+              time!,
               style: AppFonts.get20Font(),
             ),
           ],

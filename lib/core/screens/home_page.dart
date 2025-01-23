@@ -2,8 +2,10 @@
 
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
+import 'package:intl/intl.dart';
 import 'package:prayer_schedule_app/components/app_fonts.dart';
 import 'package:prayer_schedule_app/components/app_images.dart';
+import 'package:prayer_schedule_app/components/prayer_calculate.dart';
 import 'package:prayer_schedule_app/core/widgets/left_time.dart';
 import 'package:prayer_schedule_app/core/widgets/prayer_box.dart';
 
@@ -16,6 +18,33 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   @override
+  String? formattedDate;
+  String? formattedTime;
+  Map<String, String>? prayerTimes;
+  @override
+  void initState() {
+    super.initState();
+    _calculatePrayerTimes();
+    _updateDateTime(); // Fetch and format the current date and time
+  }
+
+  // Method to calculate prayer times
+  void _calculatePrayerTimes() {
+    final times = PrayerTimeCalculator.getPrayerTimes();
+    setState(() {
+      prayerTimes = times;
+    });
+  }
+
+  // Method to update the date and time
+  void _updateDateTime() {
+    final now = DateTime.now();
+    setState(() {
+      formattedDate = DateFormat('dd MMMM, yyyy').format(now); // Format date
+      formattedTime = DateFormat('h:mm a').format(now); // Format time
+    });
+  }
+
   Widget build(BuildContext context) {
     return Scaffold(
       // Use SafeArea to avoid system UI overlaps
@@ -44,14 +73,14 @@ class _HomePageState extends State<HomePage> {
                 Padding(
                   padding: const EdgeInsets.only(top: 14.0, left: 20),
                   child: Text(
-                    "16 February, 2023",
+                    formattedDate!,
                     style: AppFonts.get20Font(),
                   ),
                 ),
                 Padding(
                   padding: const EdgeInsets.only(top: 1, left: 20),
                   child: Text(
-                    "06:00 AM",
+                    formattedTime!,
                     style: AppFonts.get20Font(),
                   ),
                 ),
@@ -61,9 +90,12 @@ class _HomePageState extends State<HomePage> {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceAround,
                   children: [
-                    PrayerBox(text: "Fajr", time: "06:00"),
-                    PrayerBox(text: "Shuruk", time: "07:18"),
-                    PrayerBox(text: "Dhuhr", time: "06:00"),
+                    PrayerBox(
+                        text: "Fajr", time: prayerTimes!['fajr'] ?? '/na'),
+                    PrayerBox(
+                        text: "Shuruk", time: prayerTimes!['shuruk'] ?? '/na'),
+                    PrayerBox(
+                        text: "Dhuhr", time: prayerTimes!['dhuhr'] ?? '/na'),
                   ],
                 ),
                 const Gap(30),
@@ -72,9 +104,12 @@ class _HomePageState extends State<HomePage> {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceAround,
                   children: [
-                    PrayerBox(text: "Asr", time: "06:00"),
-                    PrayerBox(text: "Maghrib", time: "06:00"),
-                    PrayerBox(text: "Isha", time: "06:00"),
+                    PrayerBox(text: "Asr", time: prayerTimes!['asr'] ?? '/na'),
+                    PrayerBox(
+                        text: "Maghrib",
+                        time: prayerTimes!['maghrib'] ?? '/na'),
+                    PrayerBox(
+                        text: "Isha", time: prayerTimes!['isha'] ?? '/na'),
                   ],
                 ),
 
